@@ -6,11 +6,11 @@ This feasibility study assesses whether a passenger-facing Budapest public trans
 
 ## 2. Problem Statement
 
-Passengers travelling across Budapest may need to combine several public transport services to reach their destination. Choosing a journey requires more than finding a connection between stops: the services must operate on the selected date, the departure and arrival times must fit, and transfers must be achievable. When several journeys are possible, passengers also need enough information to compare them and choose one that suits their trip.
+Passengers travelling across Budapest may need to combine several public transport services to reach their destination. Choosing a journey requires more than finding a connection between stops: the services must operate on the selected date, the departure and arrival times must fit, and transfers must be achievable. When several journeys are possible, passengers also need enough information to compare them and choose one that suits their trip. Passengers may also have personal preferences that rule out particular services. A useful journey plan should respect these preferences when presenting and comparing alternatives.
 
 ## 3. Proposed Solution
 
-
+The proposed application is a web-based Budapest public transport journey planner. Passengers select a departure stop, a destination stop, and a departure date and time. They may also exclude services they prefer not to use. Using static timetable data, the application searches the remaining services for journeys with valid connections and presents several comparably good alternatives when available. Each result shows the services to take, departure and arrival times, and any transfers. If no journey meets the selected conditions, the application explains that no result was found.
 
 ## 4. Project Scope
 
