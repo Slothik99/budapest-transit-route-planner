@@ -15,11 +15,74 @@ The proposed application is a web-based Budapest public transport journey planne
 ## 4. Project Scope
 
 ### 4.1 In Scope
+
+The first releasable version will:
+
+- plan journeys between two user-selected public transport stops;
+- use real static BKK GTFS timetable data;
+- allow the user to specify a departure date and time;
+- consider only services operating on the selected date;
+- respect scheduled arrival and departure times and boarding and alighting restrictions;
+- support transfers when the next service departs from the same stop_id, or when the arrival and departure points are connected through pathways.txt;
+- include pathway traversal time and an additional transfer margin;
+- allow the user to exclude selected routes before journey calculation;
+- return multiple meaningfully different and comparably suitable journeys when available;
+- present the ordered journey legs, services, stops, departure and arrival times, transfers, and total journey time;
+- clearly report when no journey satisfies the selected conditions;
+- provide a usable web interface.
+
 ### 4.2 Out of Scope
+
+The first releasable version will not include:
+
+- address-to-address journey planning;
+- address search or geocoding;
+- walking between an address and a stop;
+- walking between separate street stops without a GTFS pathway;
+- transfers inferred only from geographic proximity, matching stop names or a shared parent_station;
+- real-time delays, disruptions or vehicle positions;
+- automatic replanning after a delay or disruption;
+- fare and ticket-price calculation;
+- user accounts, saved journeys or preference profiles;
+- a dedicated mobile application.
 
 ## 5. Target Users
 
+The primary target users are passengers who plan journeys within the area covered by the imported BKK static timetable data. This includes regular commuters, occasional passengers and visitors who can identify their departure and destination stops.
+
+Users are expected to access the application through a web browser and understand basic public transport concepts such as stops, routes, departure times and transfers. They should not need technical knowledge of GTFS data or the underlying route-planning process.
+
+The first releasable version is particularly relevant to passengers who want to compare several suitable journeys or avoid selected routes according to their personal preferences. Since it does not support addresses or unrestricted walking between stops, it is less suitable for users who do not know which stops to select.
+
 ## 6. Data Sources
+
+### 6.1 Manually Created Test Data
+
+The first prototype will use a small, manually created transport network. It will contain enough stops, routes, trips, departure times and transfer possibilities to test direct journeys, journeys with transfers, alternative routes, route exclusions and cases where no valid journey exists.
+
+The dataset will be designed to produce known and verifiable results. It will be clearly identified as fictional and will not be presented as real passenger information.
+
+### 6.2 BKK Static GTFS Data
+
+Later prototypes and the first releasable version will use static timetable data published through the BKK OpenData portal in GTFS format. At the time of this feasibility assessment, the static feed can be downloaded without a paid subscription or API key. Its current licence and attribution requirements must be checked again before publication.
+
+The inspected feed contains the data required to associate transport routes with individual scheduled trips, stopping points, arrival and departure times, and applicable service dates. It also provides station hierarchy and pathway data for some locations.
+
+The inspected feed does not contain a separate transfers.txt file. Transfers will therefore be supported only when consecutive journey legs use the same stop or when the relevant arrival and departure points are connected by the available station pathway data. The application will not infer walking connections between separate stops from their names or geographical proximity.
+
+Static timetable feeds cover a limited period and can change over time. The application will therefore require a repeatable process for downloading, validating and replacing its timetable data. Searches outside the period covered by the loaded feed must be rejected with a clear explanation.
+
+### 6.3 Data Volume and Coverage
+
+The stop-time dataset is substantially larger than the other feed files. Import duration, storage requirements, memory usage and journey-planning performance must therefore be measured with a complete feed before the first release. The feasibility assessment does not assume that all source records can be stored and processed as an unstructured in-memory collection.
+
+Station pathway data includes traversal times and directions, making it potentially suitable for calculating supported station-internal transfers. However, the inspected data does not establish complete pathway coverage for every stop and station. Coverage must be measured during the full-feed feasibility phase, and transfers without a verifiable connection must not be offered.
+
+### 6.4 Future Data Sources
+
+Real-time delay, disruption and vehicle-position data may be investigated in a later evolution phase. Its availability, access conditions, usage limits, reliability and integration effort must be assessed separately before it is added to the planned scope.
+
+Address search and pedestrian-network data would also require separate data sources and technical evaluation. Since address-to-address planning and unrestricted walking are outside the first releasable version, these sources are not dependencies of the current project scope.
 
 ## 7. Technical Feasibility
 
